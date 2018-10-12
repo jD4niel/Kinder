@@ -12,6 +12,6 @@ class Credentials extends Model
     ];
     public function student()
     {
-        return $this->belongsTo('App\Student');
+        return $this->hasOne('App\Student');
     }
 }

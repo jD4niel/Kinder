@@ -18,19 +18,15 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('last_name');
             $table->string('second_last_name')->nullable();
-            $table->unsignedInteger('credential_id')->nullable();;
-            $table->unsignedInteger('group_id');
-            $table->unsignedInteger('expedient_id')->nullable();;
+            $table->string('degree');
+            $table->string('group');
+            $table->unsignedInteger('credential_id')->nullable();
+            $table->unsignedInteger('expedient_id')->nullable();
             $table->timestamps();
 
             $table->foreign('credential_id')
                 ->references('id')
                 ->on('credentials')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('group_id')
-                ->references('id')
-                ->on('groups')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreign('expedient_id')

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class VigilantsTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class VigilantsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Vigilant::class,100)->create();
+        factory(App\User::class,100)->create();
     }
 }

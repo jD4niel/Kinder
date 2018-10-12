@@ -11,24 +11,26 @@ class Student extends Model
         'last_name',
         'second_last_name',
         'credential_id',
-        'group_id',
-        'expedient_id'
+        'expedient_id',
+        'degree',
+        'group',
     ];
 
     public function registry()
     {
         return $this->belongsTo('App\Registry');
     }
-    public function group()
+    public function user()
     {
-        return $this->hasMany('App\Group');
+        return $this->hasMany('App\User');
     }
     public function expedient()
     {
-        return $this->hasOne('App\Expedient');
+        return $this->belongsTo('App\Expedient');
     }
     public function credentials()
     {
-        return $this->hasOne('App\Credentials');
+        return $this->belongsTo('App\Credentials');
     }
+
 }

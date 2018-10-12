@@ -9,13 +9,13 @@ class Registry extends Model
     protected $fillable =[
         'QR_code',
         'student_id',
-        'tutor_id',
-        'vigilant_id'
+        'vigilante',
+        'tutor'
     ];
 
     public function tutor()
     {
-        return $this->hasMany('App\Tutor');
+        return $this->hasMany('App\User');
     }
     public function vigilant()
     {

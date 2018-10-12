@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'tutors',
+        'passwords' => 'users',
     ],
 
     /*
@@ -28,7 +28,7 @@ return [
     | here which uses session storage and the Eloquent user provider.
     |
     | All authentication drivers have a user provider. This defines how the
-    | tutors are actually retrieved out of your database or other storage
+    | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | Supported: "session", "token"
@@ -38,22 +38,22 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'tutors',
+            'provider' => 'users',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'tutors',
+            'provider' => 'users',
         ],
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Tutor Providers
+    | User Providers
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the
-    | tutors are actually retrieved out of your database or other storage
+    | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | If you have multiple user tables or models you may configure multiple
@@ -65,14 +65,14 @@ return [
     */
 
     'providers' => [
-        'tutors' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Tutor::class,
+            'model' => App\User::class,
         ],
 
-        // 'tutors' => [
+        // 'users' => [
         //     'driver' => 'database',
-        //     'table' => 'tutors',
+        //     'table' => 'users',
         // ],
     ],
 
@@ -92,8 +92,8 @@ return [
     */
 
     'passwords' => [
-        'tutors' => [
-            'provider' => 'tutors',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
         ],

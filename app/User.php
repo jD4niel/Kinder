@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Tutor extends Authenticatable
+class User extends Authenticatable
 {
     use Notifiable;
 
@@ -20,9 +20,9 @@ class Tutor extends Authenticatable
         'second_last_name',
         'phone_number',
         'email',
-        'password',
         'role_id',
-        'address_id'
+        'address_id',
+        'student_id'
     ];
 
     /**
@@ -38,8 +38,11 @@ class Tutor extends Authenticatable
     {
         return $this->belongsTo('App\Role');
     }
-    public function registry()
+   /* public function registry()
     {
         return $this->belongsTo('App\Registry');
+    }*/
+    public function student(){
+        return $this->belongsTo('App\Student');
     }
 }

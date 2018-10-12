@@ -7,8 +7,9 @@ $factory->define(App\Student::class, function (Faker $faker) {
         'name'=>$faker->firstName,
         'last_name'=>$faker->lastName,
         'second_last_name'=>$faker->lastName,
+        'group'=>$faker->randomElement(['A','B','C','D','E']),
+        'degree'=>$faker->numberBetween(1,3),
         'credential_id'=>null,
-        'group_id'=>$faker->unique()->numberBetween(1,100),
         'expedient_id'=>null
     ];
 });

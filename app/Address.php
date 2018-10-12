@@ -15,6 +15,6 @@ class Address extends Model
     ];
     public function tutor()
     {
-        return $this->hasOne('App\Tutor');
+        return $this->hasOne('App\User');
     }
 }

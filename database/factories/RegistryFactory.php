@@ -6,7 +6,7 @@ $factory->define(App\Registry::class, function (Faker $faker) {
     return [
         'QR_code'=>null,
         'student_id'=>$faker->numberBetween(1,100),
-        'tutor_id'=>$faker->numberBetween(1,100),
-        'vigilant_id'=>$faker->numberBetween(1,3)
+        'vigilante'=>$faker->numberBetween(1,5),
+        'tutor'=>$faker->numberBetween(6,100)
     ];
 });

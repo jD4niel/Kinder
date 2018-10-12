@@ -13,16 +13,18 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Tutor::class, function (Faker $faker) {
+$factory->define(App\User::class, function (Faker $faker) {
     return [
         'name'=>$faker->firstName,
         'last_name'=>$faker->lastName,
         'second_last_name'=>$faker->lastName,
         'phone_number'=>$faker->phoneNumber,
         'email'=> $faker->unique()->safeEmail,
-        'password'=>'secret',
+        'password'=>'$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',//secret
         'role_id'=>$faker->numberBetween(1,3),
-        'address_id'=>$faker->numberBetween(1,100)
+        'address_id'=>$faker->numberBetween(1,100),
+        'student_id'=>$faker->numberBetween(1,100),
+        'remember_token' => str_random(10)
 
    /*     'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
