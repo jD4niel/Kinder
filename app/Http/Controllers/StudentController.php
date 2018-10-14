@@ -2,9 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
+use App\Colony;
+use App\Credentials;
 use App\Student;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Request;
+//use Dompdf\Exception;
+use Illuminate\Database\Eloquent\Collection;
+use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+//use FontLib\Table\Type\name;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use http\Env\Response;
+use Illuminate\Support\Facades\Hash;
+use LaravelQRCode\Facades\QRCode;
+use QR_Code\QR_Code;
 
 class StudentController extends Controller
 {
@@ -40,7 +59,51 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request;
+        if($data->tutor_id==0){
+            $colony_get_id = Colony::select('id')->where('post_code','=',$data->post_code)->where('colony','=',$data->colonia)->where('municipality','=',$data->municipio)->get();
+
+            $address = new \App\Address;
+            $address->num_ext=$data->num_ext;
+            $address->street=$data->tutor_calle;
+            $address->colony_id=$colony_get_id[0]['id'];
+            $address->save();
+            $last_address_id = Address::select('id')->max('id');
+
+            $contraseña=Hash::make($data->tutor_pass);
+
+            $tutor = new \App\User;
+            $tutor->name = $data->tutor_nombre;
+            $tutor->last_name = $data->tutor_apellido_p;
+            $tutor->second_last_name = $data->tutor_apellido_m;
+            $tutor->phone_number = $data->tutor_phone;
+            $tutor->email = $data->tutor_email;
+            $tutor->password = $contraseña;
+            $tutor->role_id=3;
+            $tutor->address_id=$last_address_id;
+            $tutor->save();
+            $last_tutor_id = User::select('id')->max('id');
+
+            $student = new \App\Student;
+            $student->name = $data->alumno_nombre;
+            $student->last_name = $data->alumno_apellido_p;
+            $student->second_last_name = $data->alumno_apellido_m;
+            $student->degree = $data->grado;
+            $student->group = $data->grupo;
+            $student->user_id = $last_tutor_id[0]['id'];
+            $student->save();
+        }
+        else {
+            $student = new \App\Student;
+            $student->name = $data->alumno_nombre;
+            $student->last_name = $data->alumno_apellido_p;
+            $student->second_last_name = $data->alumno_apellido_m;
+            $student->degree = $data->grado;
+            $student->group = $data->grupo;
+            $student->user_id = $data->tutor_id;
+            $student->save();
+        }
+        return response()->json($student);
     }
 
     /**
@@ -98,74 +161,37 @@ class StudentController extends Controller
         $student = Student::destroy($id);
         return response()->json($student);
     }
+    public function createView(){
+        $user = User::all();
+        $colony = Colony::all();
+        $municipality = Colony::select('municipality')->groupBy('municipality')->get();
+        return view('AdminView/admin_create_student',compact('user','colony','municipality'));
+    }
+    public function fillSelect(Request $request){
+        $colony=Colony::where('municipality',$request->municipio)->get();
+        return response()->json($colony);
+    }
     public function uploadImg(Request $request){
+
         DB::beginTransaction();
         try{
 
             $data = $request->all();
-            dd($data);
-
             foreach ($data["file"] as $file) {
-
                 $attr = exif_read_data($file);
-                $size = getimagesize($file, $info);
-
-                if(isset($info['APP13']))
-                {
-                    $iptc = iptcparse($info['APP13']);
-                }
-
-                $byLineTittle = implode(" <br> " , $iptc['2#085']);
-                $objectName = implode(" <br> " , $iptc['2#005']);
-                $keywords = implode(" <br> " , $iptc['2#025']);
-                $f_today = new Carbon();
-                $f_year = $f_today->year;
-                $f_month = $f_today->month;
-                $f_day = $f_today->day;
                 $filename_img = $file->getClientOriginalName();
                 $mime = $file->getMimeType();
-                $fechaDir = $f_year . '/' . $f_month . '/' . $f_day;
 
-                if (($mime == 'image/jpeg') || ($mime == 'image/jpg' ) || ($mime == 'image/png')) {
+                if (($mime == 'image/jpeg') || ($mime == 'image/jpg' ) || ($mime == 'image/png') || ($mime == 'image/.png')) {
 
-                    $destinationPath = public_path() . '/Repositorio/fotos/' . $fechaDir;
-                    $destinationPath2 = public_path() . '/Repositorio/thumbs/' . $fechaDir;
+                    $destinationPath = public_path() . '/images';
                     $filename_img = $file->getClientOriginalName();
-                    $filename_img2 = $file->getClientOriginalName(). 'thumbnail.';
                     if (!File::exists($destinationPath)) {
                         File::makeDirectory($destinationPath, 0755, true);
                     }
-                    if (!File::exists($destinationPath2)) {
-                        File::makeDirectory($destinationPath2, 0755, true);
-                    }
                     $destinationPath1 = $destinationPath . '/' . $filename_img;
-                    $destinationPath2 = $destinationPath2 . '/' . $filename_img;
 
                     copy($file, $destinationPath1);
-                    $image = \Image::make($destinationPath1);
-                    $image->fit(256, 144);
-
-                    $image->save($destinationPath2);
-
-
-                    $foto = new Datapic();
-                    $foto->caption = $attr['ImageDescription'];
-                    $foto->writer = $attr['Artist'];
-                    $foto->headline = 'NULL';
-                    $foto->writer = $attr['Artist'];
-                    $foto->byline = $attr['Artist'];
-                    $foto->byline_title = $byLineTittle;
-                    $foto->objectname = $objectName;
-                    $foto->prioridad = 0;
-                    $foto->directorio = $fechaDir;
-                    $foto->nombre = $file->getClientOriginalName();
-                    $foto->fecha_in = $f_today;
-                    $foto->publicada = 0;
-                    $foto->fecha_crea = $attr['DateTimeDigitized'];
-                    $foto->keywords = $keywords;
-                    $foto->tipo_medio = 1;
-                    $foto->save();
-                    //  return "foto" . $foto;
                 } else {
                     return "Tipo de archivo invalido mime: " . $mime;
                     abort(500);
@@ -176,6 +202,20 @@ class StudentController extends Controller
             return $e;
         }
         DB::commit();
+
+    }
+    public function makeQR(){
+        $last_student = Student::select('id')->max('id');
+        $id_alumno = $last_student;
+        $alumno=Student::find($id_alumno);
+        $QR_name = $id_alumno.'_'.$alumno->name.'_'.$alumno->last_name.'.png';
+
+        $alumno->qr_code=$QR_name;
+        $alumno->save();
+
+        $file=public_path('images/qr_codes/'.$QR_name);
+        \QRCode::text($QR_name)->setOutfile($file)->png();
+         return response()->json($alumno);
     }
 
 }

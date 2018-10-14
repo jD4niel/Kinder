@@ -23,7 +23,6 @@ class CreateusersTable extends Migration
             $table->string('password');
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('address_id');
-            $table->unsignedInteger('student_id');
             $table->rememberToken();
             $table->timestamps();
 
@@ -34,11 +33,6 @@ class CreateusersTable extends Migration
             $table->foreign('address_id')
                 ->references('id')
                 ->on('addresses')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('student_id')
-                ->references('id')
-                ->on('students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

@@ -4,10 +4,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Address::class, function (Faker $faker) {
     return [
-        'postal_code' => $faker->numberBetween(42000,42300),
+        'num_ext' => $faker->numberBetween(2,80),
         'street'=> $faker->streetName,
-        'colony'=> $faker->citySuffix,
-        'municipality'=> $faker->randomElement(['Mineral de la Reforma','Pachuca']),
-        'state'=> 'Hidalgo'
+        'colony_id'=> $faker->numberBetween(1,50)
     ];
 });

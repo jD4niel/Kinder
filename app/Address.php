@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $fillable = [
-        'postal_code',
-        'street',
-        'colony',
-        'municipality',
-        'state'
+        'num_ext',
+        'street'
     ];
     public function tutor()
     {
         return $this->hasOne('App\User');
+    }
+    public function colonies(){
+        return $this->belongsTo('App\Colony');
     }
 }

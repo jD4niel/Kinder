@@ -21,8 +21,7 @@ class User extends Authenticatable
         'phone_number',
         'email',
         'role_id',
-        'address_id',
-        'student_id'
+        'address_id'
     ];
 
     /**
@@ -43,6 +42,6 @@ class User extends Authenticatable
         return $this->belongsTo('App\Registry');
     }*/
     public function student(){
-        return $this->belongsTo('App\Student');
+        return $this->hasMany('App\Student');
     }
 }

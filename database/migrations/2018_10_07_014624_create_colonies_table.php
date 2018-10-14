@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCredentialsTable extends Migration
+class CreateColoniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCredentialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('credentials', function (Blueprint $table) {
+        Schema::create('colonies', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('expiration_date');
-            $table->longText('QR_code');
+            $table->unsignedInteger('post_code');
+            $table->string('colony');
+            $table->string('municipality');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateCredentialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('credentials');
+        Schema::dropIfExists('colonies');
     }
 }

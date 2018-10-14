@@ -14,6 +14,9 @@ class Student extends Model
         'expedient_id',
         'degree',
         'group',
+        'user_id',
+        'image',
+        'qr_code'
     ];
 
     public function registry()
@@ -22,15 +25,11 @@ class Student extends Model
     }
     public function user()
     {
-        return $this->hasMany('App\User');
+        return $this->belongsTo('App\User');
     }
     public function expedient()
     {
         return $this->belongsTo('App\Expedient');
-    }
-    public function credentials()
-    {
-        return $this->belongsTo('App\Credentials');
     }
 
 }
