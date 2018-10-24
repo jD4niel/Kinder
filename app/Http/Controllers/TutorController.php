@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class TutorController extends Controller
      */
     public function index()
     {
-        $tutor = User::get(); //entonces me equivoque los belong to es alr
+        $tutor = Student::get(); //
+        //dd($tutor->user);
         // dd($student->student);
         return view('AdminView/admin_tutor',compact('tutor'));
     }
@@ -59,7 +61,7 @@ class TutorController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -71,7 +73,17 @@ class TutorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request;
+
+        $tutor = User::findOrFail($id);
+        $tutor->name = $data->nombre;
+        $tutor->last_name = $data->apellido_p;
+        $tutor->second_last_name = $data->apellido_m;
+        $tutor->phone_number = $data->phone;
+        $tutor->email = $data->email;
+        $tutor->save();
+
+        return response()->json($tutor);
     }
 
     /**
@@ -82,6 +94,7 @@ class TutorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tutor = User::destroy($id);
+        return response()->json($tutor);
     }
 }

@@ -66,7 +66,8 @@
                     dataType: 'json',
                     success: function (data) {
                         console.log(data);
-                        $('#id_student').val(data["id"]);
+                        $('#id_student').val(data[0]["id"]);
+                        alert( $('#id_student').val());
                         $('#nombre').val(data[0]["name"]+' '+data[0]["last_name"]+' '+data[0]["second_last_name"]);
                         $('#tutor').val(data[1]["name"]+' '+data[1]["last_name"]+' '+data[1]["second_last_name"]);
                         $('#hora_entrada').val(data[2]);
@@ -91,6 +92,7 @@
         });
         function registrar() {
             var id = $('#id_student').val();
+            alert(id);
             var route = "{{route('store.entry')}}";
             $.ajax({
                 url: route,
@@ -100,14 +102,14 @@
                 data: {
                     'id':id,
                 },
-                type: 'POST',
+                type: 'post',
                 dataType: 'json',
                 success: function (data) {
                     console.log(data);
-                    $('#id_student').val(data["id"]);
+                    /*$('#id_student').val(data["id"]);
                     $('#nombre').val(data[0]["name"]+' '+data[0]["last_name"]+' '+data[0]["second_last_name"]);
                     $('#tutor').val(data[1]["name"]+' '+data[1]["last_name"]+' '+data[1]["second_last_name"]);
-                    $('#hora_entrada').val(data[2]);
+                    $('#hora_entrada').val(data[2]);*/
                     $('#camara').toggle('slow');
                     $('#datos').toggle('slow');
                 },

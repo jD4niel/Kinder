@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -16,8 +17,11 @@ class PdfController extends Controller
     public function index()
     {
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('credential')->setPaper('letter', 'landscape');
-        return $pdf->stream();
+        $last_student = Student::select('id')->max('id');
+        $student = Student::findOrFail($last_student);
+
+        $pdf->loadView('credential',compact($student))->setPaper('letter', 'landscape');
+        return $pdf->download();
     }
 
     /**

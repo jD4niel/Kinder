@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Registry;
 use App\Student;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VigilantController extends Controller
 {
@@ -48,6 +50,13 @@ class VigilantController extends Controller
     {
         $student=Student::findOrFail($request->id);
         $tutor=User::findOrFail($student->user_id);
+        $registry = new \App\Registry;
+        $registry-> student_id=$request->id;
+        $registry-> vigilante=Auth::user()->id;
+        $registry-> tutor=$tutor->id;
+
+        $registry->save();
+        return ($request->id);
 
     }
 

@@ -33,8 +33,9 @@ Route::get('/alumno/credencial','PdfController@index')->name('credential.pdf')->
 Route::get('/alumno/crear/qr','StudentController@makeQR')->name('generate.qr')->middleware('auth','admin');
 /*Modulo Admin tutores*/
 Route::get('/tutores', 'TutorController@index')->name('tutor.index')->middleware('auth','admin');
-
+Route::delete('/tutores/borrar/{id}', 'TutorController@destroy')->name('tutor.delete')->middleware('auth','admin');
+Route::put('/tutores/modificar/{id}', 'TutorController@update')->name('tutor.update')->middleware('auth','admin');
 /*Modulo vigilantes*/
-Route::get('/registro','VigilantController@index')->name('registry.index');
-Route::post('/registro/alumno','VigilantController@dataRead')->name('registry.data');
-Route::post('/registro/entrada','VigilantController@store')->name('store.entry');
+Route::get('/registro','VigilantController@index')->name('registry.index')->middleware('auth','admin');
+Route::post('/registro/alumno','VigilantController@dataRead')->name('registry.data')->middleware('auth','admin');
+Route::post('/registro/entrada','VigilantController@store')->name('store.entry')->middleware('auth','admin');

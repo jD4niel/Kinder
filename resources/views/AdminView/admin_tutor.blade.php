@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="text-center">
-        <h1 class="h1">Lista de Alumnos</h1>
+        <h1 class="h1">Lista de tutores</h1>
     </div>
     <hr>
     <div class="text-right">
-    <a href="{{route('student.crear')}}" class="btn btn-primary text-center">Añadir nuevo usuario</a>
+    <a href="{{route('student.crear')}}" class="btn btn-primary text-center">Añadir nuevo tutor</a>
     </div>
     <div class="row justify-content-center">
 
@@ -25,16 +25,16 @@
                 </thead>
                 <tbody>
                     @foreach($tutor as $item)
-                        <tr id="id{{$item->id}}">
-                            <td>{{$item->id}}</td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->last_name}}&nbsp;{{$item->second_last_name}}</td>
-                            <td>{{$item->phone_number}}</td>
-                            <td>{{$item->email}}</td>
-                            <td>{{$item->student_id}}</td>
+                        <tr id="id{{$item->user_id}}">
+                            <td>{{$item->user_id}}</td>
+                            <td>{{$item['user']['name']}}</td>
+                            <td>{{$item['user']['last_name']}}&nbsp;{{$item["user"]["second_last_name"]}}</td>
+                            <td>{{$item['user']['phone_number']}}</td>
+                            <td>{{$item['user']['email']}}</td>
+                            <td>{{$item->name}}&nbsp;{{$item->last_name}}&nbsp;{{$item->second_last_name}}</td>
                             <td>
-                                <button onclick="borrar({{$item->id}})" class="btn btn-danger">Borrar</button>
-                                <button onclick="modificar('{{$item->id}}','{{$item->name}}','{{$item->last_name}}','{{$item->second_last_name}}','{{$item->degree}}','{{$item->group}}')" data-nombre="{{$item->name}}" class="btn btn-success"  data-toggle="modal" data-target="#ModificarAlumnoModal">Modificar</button>
+                                <button onclick="borrar({{$item->user_id}})" class="btn btn-danger">Borrar</button>
+                                <button onclick="modificar('{{$item->user_id}}','{{$item["user"]["name"]}}','{{$item["user"]["last_name"]}}','{{$item["user"]["second_last_name"]}}','{{$item["user"]["phone_number"]}}','{{$item["user"]["email"]}})')" data-nombre="{{$item->name}}" class="btn btn-success"  data-toggle="modal" data-target="#ModificarTutorModal">Modificar</button>
                             </td>
                         </tr>
 
@@ -46,50 +46,44 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="ModificarAlumnoModal" tabindex="-1" role="dialog" aria-labelledby="ModificarAlumnoModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="ModificarTutorModal" tabindex="-1" role="dialog" aria-labelledby="ModificarTutorModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar datos alumno</h5>
+                    <div class="modal-header text-center">
+                    <h3 class="modal-title text-center" id="exampleModalLabel">&nbsp;Editar datos tutor</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="">
                 <div class="modal-body">
-                    <input type="text" id="identificador_alumno" hidden>
-                        <input id="input_name" type="text" placeholder="Nombre">
-                        <input id="input_ap" type="text" placeholder="Apellido Paterno">
-                        <input id="input_am" type="text" placeholder="Apellido Materno">
-                        <select name="Grado" id="Grado">
-                            <option value="" disabled selected>Grado</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-
-                        <select name="Grupo" id="Grupo">
-                            <option value="" disabled selected>Grupo</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                        </select>
-
-                        <hr>
-                        <label for="">nombre tutor</label>
-                       {{-- <select name="" id="nombre_tutor">
-                            @foreach($padre as $item)
-                                <option value="{{$item->student_id}}">{{$item->name}}&nbsp;{{$item->last_name}}</option>
-                            @endforeach
-                        </select>
-
-                        <select name="" id="nombre_tutor_sustituto">
-                            @foreach($tutor_sustituto as $item)
-                                <option value="{{$item->student_id}}">{{$item->name}}&nbsp;{{$item->last_name}}</option>
-                            @endforeach
-                        </select>--}}
+                    <input type="text" id="identificador_tutor" hidden>
+                    <div id="form-tutor" style="margin-top: 35px;padding-left: 30px;padding-right: 30px;">
+                        <div class="form-group row">
+                            <label for="tutor_nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control col-md-12" id="tutor_nombre" placeholder="Nombre completo">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tutor_apellido_m" class="col-sm-2 col-form-label">Apellidos:</label>
+                            <div class="form-group col-md-5">
+                                <input type="text" id="tutor_apellido_p" class="form-control col-md-12" placeholder="Apellido Paterno">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <input type="text" id="tutor_apellido_m" class="form-control col-md-12" placeholder="Apellido Materno">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tutor_phone" class="col-sm-2 col-form-label">Contacto:</label>
+                            <div class="form-group col-md-5">
+                                <input type="number" min="0" id="tutor_phone" class="form-control col-md-12" placeholder="Telefono">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <input type="email" id="tutor_email" class="form-control col-md-12" placeholder="Email">
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
@@ -110,7 +104,7 @@
             $('#tutor_table').DataTable();
         } );
 
-      /*  function borrar(id){
+        function borrar(id){
             swal({
                 title: "¿Eliminar registro?",
                 text: "Una vez eliminado, no se podrán recuperar los datos",
@@ -121,76 +115,81 @@
                 .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '/alumno/borrar/'+id,
+                        url: '/tutores/borrar/'+id,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        data: {id: id},
+                        data: {'id': id},
                         type: 'DELETE',
                         dataType: 'json',
                         success: function (data) {
                             console.log(data);
                             $('#id'+id).hide();
+                            swal("El registro fue eliminado correctamente", {
+                                icon: "success",
+                            });
                         },
                         error: function (data) {
                             console.log(data);
+                            swal("Error al eliminar registro", {
+                                icon: "warning",
+                            });
                         }
                     });
-                    swal("El registro fue eliminado correctamente", {
-                        icon: "success",
-                    });
+
                 }
         });
 
         }
-        function modificar(id,nombre,apellido_p,apellido_m,grado,grupo) {
-            $('#nombre_tutor').val(id);
-            $('#input_name').val(nombre);
-            $('#input_ap').val(apellido_p);
-            $('#input_am').val(apellido_m);
-            $('#Grado').val(grado);
-            $('#Grupo').val(grupo);
-            $('#identificador_alumno').val(id);
+        function modificar(id,nombre,apellido_p,apellido_m,phone,email){
+            alert(id + nombre + apellido_p);
+            $('#identificador_tutor').val(id);
+            $('#tutor_nombre').val(nombre);
+            $('#tutor_apellido_m').val(apellido_p);
+            $('#tutor_apellido_m').val(apellido_m);
+            $('#tutor_phone').val(phone);
+            $('#email').val(email);
         }
         function update() {
-            var id = $('#identificador_alumno').val();
-            var nombre = $('#input_name').val();
-            var apellido_p = $('#input_ap').val();
-            var apellido_m = $('#input_am').val();
-            var grado = $('#Grado').val();
-            var grupo = $('#Grupo').val();
-          /!*  var Grado  = $('#input_am').val();
-            var Grupo*!/
+            var id = $('#identificador_tutor').val();
+            var nombre = $('#tutor_nombre').val();
+            var apellido_p = $('#tutor_apellido_p').val();
+            var apellido_m = $('#tutor_apellido_m').val();
+            var phone = $('#tutor_phone').val();
+            var email = $('#email').val();
+
+          /*  var Grado  = $('#input_am').val();
+            var Grupo*/
             $.ajax({
-              url: '/alumno/modificar/'+id,
+              url: '/tutores/modificar/'+id,
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
-              data: {'id': id,'nombre':nombre,'apellido_p':apellido_p,'apellido_m':apellido_m,'grado':grado,'grupo':grupo},
+              data: {'id': id,'nombre':nombre,'apellido_p':apellido_p,'apellido_m':apellido_m,'phone':phone,'email':email},
               type: 'PUT',
               dataType: 'json',
               success: function (data) {
-                  $('#ModificarAlumnoModal').modal('hide');
+                  $('#ModificarTutorModal').modal('hide');
                   console.log(data);
                   swal(
                       'Cambios guardados',
-                      'Alumno correctamente modificado',
+                      'Tutor correctamente modificado',
                       'success'
                   )
                   $('#id'+id).html('<td>'+id+'</td>\n' +
                       '                            <td>'+nombre+'</td>\n' +
                       '                            <td>'+apellido_p+'&nbsp;'+apellido_m+'</td>\n' +
-                      '                            <td>'+grado+'</td>\n' +
-                      '                            <td>'+grupo+'</td>\n' +
+                      '                            <td>'+phone+'</td>\n' +
+                      '                            <td>'+email+'</td>\n' +
                       '                            <td>\n' +
-                      '                                <button onclick="borrar('+id+'" class="btn btn-danger">Borrar</button>\n' +
-                      '                                <button onclick="modificar("'+id+'","'+nombre+'","'+apellido_p+'","'+apellido_m+'","'+grado+'","'+grupo+'")" class="btn btn-success"  data-toggle="modal" data-target="#ModificarAlumnoModal">Modificar</button>\n' +
+                      '                                <button onclick="borrar('+id+')" class="btn btn-danger">Borrar</button>\n' +
+                      '                                <button onclick="modificar("'+id+'","'+nombre+'","'+apellido_p+'","'+apellido_m+'","'+phone+'","'+email+'")" class="btn btn-success"  data-toggle="modal" data-target="#ModificarTutorModal">Modificar</button>\n' +
                       '                            </td>')
               },
                 error: function (data) {
                   console.log(data);
               }
           });
-        }*/
+        }
     </script>
 @endsection

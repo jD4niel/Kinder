@@ -1,4 +1,18 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+   </head>
+<body>
             <table style="width: 100%;height: 300px;" border="1">
                 <tbody>
                 <tr>
@@ -23,7 +37,7 @@
                         </div>
                         <div style="position:absolute;top:265px;float: bottom; background-color: #b6cade;width: 100%;height: 30px;">
                             <span style="color: #2a4353;font-family:Arial, Helvetica, sans-serif;position: absolute;top:10px;">Ciclo escolar 2018-2019</span>
-                            <span style="color: #2a4353;font-family:Arial, Helvetica, sans-serif;position: absolute;top:10px;float: right;">Fecha de expedición: 11/10/2018</span>
+                                <span style="color: #2a4353;font-family:Arial, Helvetica, sans-serif;position: absolute;top:10px;float: right;">Fecha de expedición: 11/10/2018</span>
                         </div>
                     </td>
                     <td width="50%">
@@ -32,5 +46,6 @@
                 </tr>
                 </tbody>
             </table>
-
+</body>
+</html>
 

@@ -22,6 +22,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach($student as $item)
                         <tr id="id{{$item->id}}">
@@ -32,7 +33,9 @@
                             <td>{{$item->group}}</td>
                             <td>
                                 <button onclick="borrar({{$item->id}})" class="btn btn-danger">Borrar</button>
-                                <button onclick="modificar('{{$item->id}}','{{$item->name}}','{{$item->last_name}}','{{$item->second_last_name}}','{{$item->degree}}','{{$item->group}}')" data-nombre="{{$item->name}}" class="btn btn-success"  data-toggle="modal" data-target="#ModificarAlumnoModal">Modificar</button>
+                                <button onclick="modificar('{{$item->id}}','{{$item->name}}','{{$item->last_name}}',
+                                        '{{$item->second_last_name}}','{{$item->degree}}','{{$item->group}}')"
+                                        data-nombre="{{$item->name}}" class="btn btn-success"  data-toggle="modal" data-target="#ModificarAlumnoModal">Modificar</button>
                             </td>
                         </tr>
 

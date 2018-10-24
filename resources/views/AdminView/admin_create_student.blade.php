@@ -333,6 +333,7 @@
         }
         function generar_credencial(){
             var route = "{{route('generate.qr')}}";
+            var pdf_route = "{{route('credential.pdf')}}";
             $.ajax({
                 url: route,
                 headers: {
@@ -343,7 +344,25 @@
                 success: function (data) {
                     console.log('credencial');
                     console.log(data);
+                    /*generar pdf de la credencial*/
+                    /*$.ajax({
+                        url: pdf_route,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'get',
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log('credencial');
+                            console.log(data);
 
+
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });*/
+                    window.location.href = pdf_route;
                 },
                 error: function (data) {
                     console.log(data);
