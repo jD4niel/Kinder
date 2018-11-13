@@ -34,13 +34,18 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $student = Student::get(); //entonces me equivoque los belong to es alrevez
+        $student = Student::get();
         $padre = User::where('role_id',3)->get();
         $tutor_sustituto = User::where('role_id',2)->get();
        // dd($student->student);
         return view('AdminView/admin_student',compact('student','tutor_sustituto','padre'));
     }
-
+    public function studentMissing(){
+        $student = Student::get();
+        $padre = User::where('role_id',3)->get();
+        $tutor_sustituto = User::where('role_id',2)->get();
+        return view('AdminView/admin_student',compact('student','tutor_sustituto','padre'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -184,7 +189,7 @@ class StudentController extends Controller
 
                 if (($mime == 'image/jpeg') || ($mime == 'image/jpg' ) || ($mime == 'image/png') || ($mime == 'image/.png')) {
 
-                    $destinationPath = public_path() . '/images';
+                    $destinationPath = public_path() . '/images/student_img';
                     $filename_img = $file->getClientOriginalName();
                     if (!File::exists($destinationPath)) {
                         File::makeDirectory($destinationPath, 0755, true);
@@ -192,6 +197,7 @@ class StudentController extends Controller
                     $destinationPath1 = $destinationPath . '/' . $filename_img;
 
                     copy($file, $destinationPath1);
+                    return $data;
                 } else {
                     return "Tipo de archivo invalido mime: " . $mime;
                     abort(500);

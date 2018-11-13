@@ -12,15 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/inicio', 'HomeController@index')->name('home');
+Route::get('/home/dataUpdate', 'HomeController@dataUpdate')->name('home.update');
 Route::get('/admin', 'AdminController@index')->name('admin')->middleware('auth','admin');
 /*Modulo Admin alumnos*/
 Route::get('/alumno', 'StudentController@index')->name('student.index')->middleware('auth','admin');
+Route::get('/alumno/missing', 'StudentController@studentMissing')->name('student.missing')->middleware('auth','admin');
 Route::delete('/alumno/borrar/{id}', 'StudentController@destroy')->name('student.delete')->middleware('auth','admin');
 Route::put('/alumno/modificar/{id}', 'StudentController@update')->name('student.update')->middleware('auth','admin');
 Route::get('/alumno/crear', 'StudentController@createView')->name('student.crear')->middleware('auth','admin');

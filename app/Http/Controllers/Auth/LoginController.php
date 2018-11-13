@@ -25,12 +25,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/inicio';
     protected function authenticated($request , $user){
         if($user->role=='Administrador'){
             return redirect()->route('admin') ;
         }elseif($user->role=='Guardia'){
-            return redirect()->route('home') ;
+            return redirect()->route('inicio') ;
         }
     }
     /**

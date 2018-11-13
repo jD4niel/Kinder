@@ -19,9 +19,9 @@ class Student extends Model
         'qr_code'
     ];
 
-    public function registry()
+    public function registro()
     {
-        return $this->belongsTo('App\Registry');
+        return $this->hasMany('App\Registry');
     }
     public function user()
     {

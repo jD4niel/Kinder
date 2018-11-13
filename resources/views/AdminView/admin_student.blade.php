@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div class="text-right">
-    <a href="{{route('student.crear')}}" class="btn btn-primary text-center">Añadir nuevo usuario</a>
+    <a href="{{route('student.crear')}}" class="btn btn-primary text-center">Añadir nuevo alumno</a>
     </div>
     <div class="row justify-content-center">
 
@@ -59,34 +59,52 @@
                 <form action="">
                 <div class="modal-body">
                     <input type="text" id="identificador_alumno" hidden>
-                        <input id="input_name" type="text" placeholder="Nombre">
-                        <input id="input_ap" type="text" placeholder="Apellido Paterno">
-                        <input id="input_am" type="text" placeholder="Apellido Materno">
-                        <select name="Grado" id="Grado">
-                            <option value="" disabled selected>Grado</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-
-                        <select name="Grupo" id="Grupo">
-                            <option value="" disabled selected>Grupo</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                        </select>
+                    <div class="form-group row">
+                        <label for="alumno_nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control col-md-12" id="input_name" placeholder="Nombre completo" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="apellido_p" class="col-sm-2 col-form-label">Apellidos:</label>
+                        <div class="form-group col-md-5">
+                            <input type="text" id="input_ap" class="form-control col-md-12" placeholder="Apellido Paterno" required>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <input type="text" id="input_am" class="form-control col-md-12" placeholder="Apellido Materno">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="form-group col-md-6">
+                            <select class="form-control col-md-12" name="Grado" id="Grado">
+                                <option value="" disabled selected>Grado</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <select class="form-control col-md-12" name="Grupo" id="Grupo">
+                                <option value="" disabled selected>Grupo</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                            </select>
+                        </div>
+                    </div>
 
                         <hr>
-                        <label for="">nombre tutor</label>
-                        <select name="" id="nombre_tutor">
+                        <label for="nombre_tutor" class="col-form-label">Tutor principal/padre</label>
+                        <select name="" id="nombre_tutor" class="form-control">
                             @foreach($padre as $item)
                                 <option value="{{$item->student_id}}">{{$item->name}}&nbsp;{{$item->last_name}}</option>
                             @endforeach
                         </select>
-
-                        <select name="" id="nombre_tutor_sustituto">
+                        <label for="nombre_tutor_sustituto" class="col-form-label">Asignar tutor sustituto</label>
+                        <select name="" id="nombre_tutor_sustituto" class="form-control">
+                            <option value="0" selected disabled>- Seleccione nuevo tutor -</option>
                             @foreach($tutor_sustituto as $item)
                                 <option value="{{$item->student_id}}">{{$item->name}}&nbsp;{{$item->last_name}}</option>
                             @endforeach

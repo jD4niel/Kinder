@@ -169,7 +169,8 @@
                 'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value
             },
             autoProcessQueue: true,
-            uploadMultiple: false,
+            data:{'id':1},
+            uploadMultiple: true,
             parallelUploads: 20,
             maxFiles: 2,
             maxFilesize: 50,
@@ -178,7 +179,9 @@
             dictInvalidFileType: "No se puede subir este tipo de archivo",
             dictFileTooBig: "El archivo es muy pesado",
             acceptedFiles: "image/*",
-
+            sending: function(file, xhr, formData) {
+                formData.append("id", 1);
+            },
             init: function () {
 
                 var wrapperThis = this;
@@ -224,7 +227,7 @@
                 });
 
                 this.on("success", function (file, response) {
-                    //console.log(response);
+                    console.log(response);
                     console.log(file['name']);
                     //$('#imageUrl').val(file['name']);
                     var nombre = $('#alumno_nombre').val();
@@ -325,6 +328,7 @@
                 success: function (data) {
                     console.log('registro guardaro');
                     console.log(data);
+                    swal('success','Alumno Registrado');
                 },
                 error: function (data) {
                     console.log(data);

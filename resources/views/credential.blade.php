@@ -18,16 +18,16 @@
                 <tr>
                     <td  width="50%">
                         <div style="float: top; background-color: #1b4b72;width: 100%;height: 65px;">
-                           <div style="color: #fff;font-family:Arial, Helvetica, sans-serif;margin-left: 10px;font-size: 25px;"><span style="position: absolute;top:15px;">Jardín de niños "Will Marquez" </span><img style="height: 65px;width: auto;float: right" src="{{ public_path()}}/images/escudo.jpg" alt=""></div>
+                           <div style="color: #fff;font-family:Arial, Helvetica, sans-serif;margin-left: 10px;font-size: 25px;"><span style="position: absolute;top:15px;">Jardín de niños  </span><img style="height: 65px;width: auto;float: right" src="{{ public_path()}}/images/escudo.jpg" alt=""></div>
 
                         </div>
                         <div style="position: absolute;top:100px;background: #fff;padding: 10px;width: 100%">
                             <div style="display: inline-block;width:70%;bottom: 250px;">
-                                <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;"><Strong>ALUMNO:&nbsp;</Strong>JESUS DANIEL ACOSTA</div>
-                                <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;margin-top:5px;"><Strong>TUTOR:&nbsp;</Strong>GERARDO ACOSTA</div>
+                                <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;"><Strong>ALUMNO:&nbsp;</Strong>{{$student->name}}&nbsp;{{$student->last_name}}&nbsp;{{$student->second_last_name}}</div>
+                                <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;margin-top:5px;"><Strong>TUTOR:&nbsp;</Strong>{{$student->user->name}}&nbsp;{{$student->user->last_name}}&nbsp;{{$student->user->second_last_name}}</div>
                                 <div style="margin-top: 10px">
-                                    <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;display: inline-block"><Strong>Grado:&nbsp;</Strong>1</div>
-                                    <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;display: inline-block"><Strong>Grupo:&nbsp;</Strong>"C"</div>
+                                    <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;display: inline-block"><Strong>Grado:&nbsp;</Strong>{{$student->degree}}</div>
+                                    <div style="font-family:Arial, Helvetica, sans-serif;padding: 10px; background-color: #e4e4e4;border-radius: 15px;display: inline-block"><Strong>Grupo:&nbsp;</Strong>"{{$student->group}}"</div>
                                 </div>
                             </div>
                             <div style="display: inline-block;padding-left: 15px;">
@@ -36,12 +36,12 @@
 
                         </div>
                         <div style="position:absolute;top:265px;float: bottom; background-color: #b6cade;width: 100%;height: 30px;">
-                            <span style="color: #2a4353;font-family:Arial, Helvetica, sans-serif;position: absolute;top:10px;">Ciclo escolar 2018-2019</span>
-                                <span style="color: #2a4353;font-family:Arial, Helvetica, sans-serif;position: absolute;top:10px;float: right;">Fecha de expedición: 11/10/2018</span>
+                            <span style="color: #2a4353;font-family:Arial, Helvetica, sans-serif;position: absolute;top:10px;">Ciclo escolar {{$now->year}}-{{$agno}}</span>
+                                <span style="color: #2a4353;font-family:Arial, Helvetica, sans-serif;position: absolute;top:10px;float: right;">Fecha de expedición: {{$fecha}}</span>
                         </div>
                     </td>
                     <td width="50%">
-                        <img width="200px" src="{{public_path()}}/images/qr_codes/104_Cristian Joan_Acosta.png" alt="">
+                        <img width="200px" src="{{public_path()}}/images/qr_codes/{{$student->qr_code}}" alt="">
                     </td>
                 </tr>
                 </tbody>

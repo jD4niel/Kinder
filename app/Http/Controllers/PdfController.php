@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Barryvdh\DomPDF\PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -16,11 +17,15 @@ class PdfController extends Controller
      */
     public function index()
     {
+        $now=Carbon::now();
+        $agno=($now->year)+1;
+        $fecha=$now->day.'/'.$now->month.'/'.$now->year;
         $pdf = App::make('dompdf.wrapper');
         $last_student = Student::select('id')->max('id');
         $student = Student::findOrFail($last_student);
 
-        $pdf->loadView('credential',compact($student))->setPaper('letter', 'landscape');
+
+        $pdf->loadView('credential',compact('student','fecha','now','agno'))->setPaper('letter', 'landscape');
         return $pdf->download();
     }
 

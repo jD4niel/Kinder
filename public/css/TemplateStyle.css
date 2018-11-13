@@ -1,0 +1,185 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+*{
+	box-sizing: border-box;
+}
+.header{
+	position: absolute;
+	height: 44px;
+	width: 100%;
+	background-color: #FD9835;
+	z-index: 4;
+}
+.side-nav{
+	position: absolute;
+	width: 100%;
+	z-index: 3;
+	height: 100vh;
+	background-color: #1B3444;
+	padding-top: 44px;
+}
+.side-nav ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.side-nav ul:hover{
+	background-color: #27495F;
+	cursor: pointer;
+}
+.side-nav ul li{
+	padding: 20px 10px;
+	border-left: 1px solid #333;
+}
+.side-nav ul li a{
+	color: #fff;
+	text-decoration: none;
+}
+.side-nav ul li i{
+	color:#333;
+	font-size: 21px;	
+}
+.main-content{
+	padding: 44px;
+}
+@media screen and (min-width: 600px){
+	.side-nav{
+		width: 50px;
+	}
+	.side-nav u li {
+		text-align: center;
+	}
+	.side-nav ul li span:nth-child(2){
+		display: none;
+	}
+	.side-nav ul li{
+		font-size: 28px;
+	}
+	.main-content{
+		margin-left: 80px;
+	}
+}
+
+@media screen and (min-width: 1000px){
+	.side-nav{
+		width: 300px;
+
+	}
+	.side-nav ul{
+		margin-left: 20px;
+	}
+	.side-nav ul li{
+		text-align: left;
+	}
+	.side-nav ul li span:nth-child(2){
+		display: inline;
+	}
+	.side-nav ul li{
+		font-size: 16px;
+	}
+	.main-content{
+		margin-left: 200px;
+	}
+}
+
+.fig figcaption{
+	margin-top: -10px;
+	margin-bottom: -10px;
+	color:#fff;
+	font-size: 18px;
+}
+.fig hr{
+	background-color: rgba(209, 209, 209, 0.89);
+	width: 60%;
+}
+.profil-pic{
+   object-fit: cover;
+   border-radius: 50%;
+   height: 100px;
+   width: 100px;
+   margin: auto;
+}
+
+/*CARDS*/
+.card{
+    object-fit: cover;
+    z-index: 5;
+    overflow: hidden;
+    color:white;
+}
+.card-fa{
+ color: rgba(255, 255, 255, 0.42);
+    position: absolute;
+    left: -5px;
+    bottom: -15px;
+    z-index: 0;
+    display: -webkit-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    transition: all 100ms ease-in-out;
+}
+.variable-card{
+	text-align: left;
+	font-size: 70px;
+    margin-top: -20px;
+	padding-right: 0px;
+	margin-inside: 0;
+
+}
+.card:hover{
+	cursor: pointer;
+
+}
+.card:hover .card-fa{
+	cursor: pointer;
+	color: #fff;
+	font-size:125px;
+
+}
+
+.a-free:hover{
+  color: blue;
+  text-decoration: none; /* no underline */
+}
+.btn-log{
+	font-size: 30px;
+	width: 200px;
+	border:none;
+	background-color: #FFC000;
+	color:black;
+	border-radius: 25px;
+    transition: all 100ms ease-in-out;
+    text-align: center;
+    margin:0 auto;
+}
+.btn-log:hover{
+	cursor: pointer;
+	font-size: 33px;
+
+  color: blue;
+  text-decoration: none; /* no underline */
+}
+.form_style{
+	background-color: rgba(252, 255, 254, 0.74);
+	padding: 50px;
+	border-radius: 10px;
+}
+.btn-close{
+	background: rgba(29, 100, 59, 0);
+	border:1px solid #ce2923;
+	border-radius: 10px;
+	padding: 5px;
+	font-size: 16px;
+    transition: all 100ms ease-in-out;
+}
+.btn-close:hover{
+	background: rgb(201, 14, 0);
+	border:1px solid #CB4E4E;
+	cursor:pointer;
+	color:#fff;
+	font-size: 16.5px;
+}

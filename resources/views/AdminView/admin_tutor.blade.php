@@ -139,7 +139,7 @@
 
                 }
         });
-
+php art
         }
         function modificar(id,nombre,apellido_p,apellido_m,phone,email){
             alert(id + nombre + apellido_p);
